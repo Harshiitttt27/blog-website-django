@@ -1,175 +1,144 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ post.postname }} - Post Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .post-image {
+            max-height: 500px;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .comment-box {
+            border-left: 3px solid #0d6efd;
+            padding-left: 15px;
+        }
+        .like-btn {
+            background: none;
+            border: none;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    {% include 'header.html' %}
 
-  <head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-
-    <title>Blog Post Details</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-
-
-    <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/templatemo-stand-blog.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/owl.css' %}">
-<!--
-
-TemplateMo 551 Stand Blog
-
-https://templatemo.com/tm-551-stand-blog
-
--->
-  </head>
-
-  <body>
-
-    {%include 'header.html'%}
-
-    <section class="blog-posts grid-system">
-      <div class="container">
+    <div class="container my-5">
         <div class="row">
-          <div class="col-lg-8">
-            <div class="all-blog-posts">
-              <div class="row">
-                <div class="col-lg-12">
-                  <div class="blog-post">
-                    <div class="blog-thumb">
-                      <img src="{{media_url}}{{post.image}}" alt="post_image">
-                    </div>
-                    <div class="down-content">
-                      <span>{{post.category}}</span>
-                      <a><h4>{{post.postname}}</h4></a>
-                      <ul class="post-info">
-                        <li><a href="#">{{post.user}}</a></li>
-                        <li><a href="#">{{post.time}}</a></li>
-                        <li><a href="#">10 Comments</a></li>
-                      </ul>
-                      <p>{{post.content}}</p>
-                      <div class="post-options">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-12">
-                  <div class="sidebar-item comments">
-                    <div class="sidebar-heading">
-                      <h2 class="text-dark-emphasis">{{total_comments}} comments</h2>
-                    </div>
-                    <div class="content">
-                      <ul>
-                        {% for comment in comments %}
-                        <li style="display: block;">
-                          <div class="ps-3">
-                            <h5>{{comment.user}}<span class="small text-black-50 px-5 text-danger">{{comment.time}}</span>
-                              {% if post.user == user or comment.user == post.user%}
-                              <a href="{% url 'deletecomment' comment.id %}" class="small text-danger float-right fw-bold pt-1">Delete</a>
-                              {% endif %}
-                            </h5>
-                            <p>{{comment.content}}</p>
-                          </div>
-                        </li>
-                        {% endfor %}
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                {% if user.is_authenticated %}
-                <div class="col-lg-12">
-                  <div class="sidebar-item submit-comment">
-                    <div class="sidebar-heading">
-                      <h2>Your comment</h2>
-                    </div>
-                    <div class="content">
-                      <form id="comment" action="{% url 'savecomment' post.id %}" method="post">
+            <div class="col-lg-8 mx-auto">
+              
+<!-- First try the standard way -->
+<!-- <img src="{{ post.image.url }}" alt="{{ post.postname }}" class="post-image mb-4" 
+     onerror="this.onerror=null; this.src='/media/{{ post.image.name }}'"> -->
+     {% load static %}
+
+     <!-- Primary image loading with multiple fallbacks -->
+     <img src="{{ post.image.url }}" 
+          alt="{{ post.postname }}"
+          class="post-image mb-4"
+          onerror="handleImageError(this)"
+          data-fallback1="/media/{{ post.image.name }}"
+          data-fallback2="{% static 'images/default-post-image.jpg' %}">
+     
+     <script>
+     function handleImageError(img) {
+         img.onerror = null; // Prevent infinite loop
+         if(img.src !== img.dataset.fallback1) {
+             img.src = img.dataset.fallback1;
+         } else if(img.dataset.fallback2) {
+             img.src = img.dataset.fallback2;
+         } else {
+             img.style.display = 'none';
+         }
+     }
+     </script>
+     
+     <!-- Debug information (visible only in development) -->
+     {% if debug %}
+     <div class="image-debug" style="display: none;">
+         <p>Image URL: {{ post.image.url }}</p>
+         <p>Storage Path: {{ post.image.path }}</p>
+         <p>File Exists: {% if post.image %}Yes{% else %}No{% endif %}</p>
+     </div>
+     {% endif %}
+
+                <!-- Post Category and Likes -->
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="badge bg-primary">{{ post.category }}</span>
+                    <form method="post" action="{% url 'increaselikes' post.id %}">
                         {% csrf_token %}
-                        <div class="row">
-                          <div class="col-lg-12">
-                            <fieldset>
-                              <textarea name="message" rows="6" id="message" placeholder="Type your comment" class="text-lowercase" required></textarea>
-                            </fieldset>
-                          </div>
-                          <div class="col-lg-12">
-                            <fieldset>
-                              <button type="submit" id="form-submit" class="main-button">Submit</button>
-                            </fieldset>
-                          </div>
+                        <button type="submit" class="like-btn">
+                            <i class="fas fa-heart text-danger"></i> {{ post.likes }}
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Post Title -->
+                <h1 class="mb-3">{{ post.postname }}</h1>
+
+                <!-- Post Meta -->
+                <div class="d-flex align-items-center mb-4">
+                    <small class="text-muted">
+                        Posted by {{ post.user.username }} on {{ post.time|date:"F d, Y" }}
+                    </small>
+                </div>
+
+                <!-- Post Content -->
+                <div class="mb-5">
+                    {{ post.content|linebreaks }}
+                </div>
+
+                <!-- Comments Section -->
+                <div class="mb-5">
+                    <h4 class="mb-4">Comments ({{ total_comments }})</h4>
+
+                    <!-- Comment Form -->
+                    {% if user.is_authenticated %}
+                    <form method="post" action="{% url 'savecomment' post.id %}" class="mb-4">
+                        {% csrf_token %}
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" name="message" id="message" style="height: 100px" required></textarea>
+                            <label for="message">Add your comment...</label>
                         </div>
-                      </form>
+                        <button type="submit" class="btn btn-primary">Post Comment</button>
+                    </form>
+                    {% else %}
+                    <div class="alert alert-info">
+                        Please <a href="{% url 'signin' %}" class="alert-link">sign in</a> to post a comment.
                     </div>
-                  </div>
-                </div>
-                {% endif %}
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="sidebar">
-              <div class="row">
-                <div class="col-lg-12">
-                  <div class="sidebar-item recent-posts">
-                    <div class="sidebar-heading">
-                      <h2>Recent Posts</h2>
-                    </div>
-                    <div class="content">
-                      <ul>
-                        {% for post in recent_posts|slice:"0:4" %}
-                        <li>
-                          <img src="{{media_url}}{{post.image}}" class="img-fluid" alt="">
-                          <a href="post-details.html">
-                            <a href="{% url 'post' post.id %}" class="text-decoration-none text-dark"><h5>{{post.postname}}</h5></a>
-                          <span>{{post.time}}</span>
-                        </a></li>
+                    {% endif %}
+
+                    <!-- Comments List -->
+                    <div class="mt-4">
+                        {% for comment in comments %}
+                        <div class="comment-box mb-3 p-3 bg-light rounded">
+                            <div class="d-flex justify-content-between">
+                                <strong>{{ comment.user.username }}</strong>
+                                <small class="text-muted">{{ comment.created_at|timesince }} ago</small>
+                            </div>
+                            <p class="mt-2 mb-1">{{ comment.content }}</p>
+                            {% if comment.user.id == user.id %}
+                            <div class="text-end">
+                                <a href="{% url 'deletecomment' comment.id %}" class="text-danger small">Delete</a>
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% empty %}
+                        <p class="text-muted">No comments yet. Be the first to comment!</p>
                         {% endfor %}
-                      </ul>
                     </div>
-                  </div>
                 </div>
-                
-              </div>
             </div>
-          </div>
         </div>
-      </div>
-    </section>
+    </div>
 
-    
-   {% include "footer.html" %}
+    {% include 'footer.html' %}
 
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-
-
-    <!-- Additional Scripts -->
-    <script src="{% static 'assets/js/custom.js' %}"></script>
-    <script src="{% static 'assets/js/owl.js' %}"></script>
-    <script src="{% static 'assets/js/slick.js' %}"></script>
-    <script src="{% static 'assets/js/isotope.js' %}"></script>
-    <script src="{% static 'assets/js/accordions.js' %}"></script>
-
-
-    <script language = "text/Javascript"> 
-      cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
-      function clearField(t){                   //declaring the array outside of the
-      if(! cleared[t.id]){                      // function makes it static and global
-          cleared[t.id] = 1;  // you could use true and false, but that's more typing
-          t.value='';         // with more chance of typos
-          t.style.color='#fff';
-          }
-      }
-    </script>
-
-
-  </body>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>

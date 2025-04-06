@@ -165,16 +165,59 @@ def deletepost(request,id):
     return profile(request,request.user.id)
 
 
+# def contact_us(request):
+#     context={}
+#     if request.method == 'POST':
+#         name=request.POST.get('name')    
+#         email=request.POST.get('email')  
+#         subject=request.POST.get('subject')  
+#         message=request.POST.get('message')  
+
+#         obj = Contact(name=name,email=email,subject=subject,message=message)
+#         obj.save()
+#         context['message']=f"Dear {name}, Thanks for your time!"
+
+#     return render(request,"contact.html")
+from django.core.mail import send_mail
+from django.conf import settings
+from django.shortcuts import render
+from .models import Contact  # Assuming your Contact model is here
+
 def contact_us(request):
-    context={}
+    context = {}
     if request.method == 'POST':
-        name=request.POST.get('name')    
-        email=request.POST.get('email')  
-        subject=request.POST.get('subject')  
-        message=request.POST.get('message')  
+        name = request.POST.get('name')    
+        email = request.POST.get('email')  
+        subject = request.POST.get('subject')  
+        message = request.POST.get('message')  
 
-        obj = Contact(name=name,email=email,subject=subject,message=message)
+        # Save the form data to the Contact model
+        obj = Contact(name=name, email=email, subject=subject, message=message)
         obj.save()
-        context['message']=f"Dear {name}, Thanks for your time!"
 
-    return render(request,"contact.html")
+        # Compose the message for the user (Confirmation message)
+        context['message'] = f"Dear {name}, Thanks for your time!"
+
+        # Send email notification to the site admin (or yourself)
+        admin_email = 'harrysethi52@gmail.com'  # Change this to your desired email address
+        email_subject = f"New Contact Form Submission: {subject}"
+        email_body = f"""
+        You have a new message from the contact form:
+
+        Name: {name}
+        Email: {email}
+        Subject: {subject}
+        Message:
+        {message}
+        """
+        
+        # Send email to admin (or your email address)
+        send_mail(
+            email_subject,
+            email_body,
+            settings.DEFAULT_FROM_EMAIL,  # From email (configured in settings)
+            [admin_email],  # List of recipient emails
+            fail_silently=False,
+        )
+
+    return render(request, "contact.html", context)

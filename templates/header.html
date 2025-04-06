@@ -9,22 +9,21 @@
 <!-- ***** Preloader End ***** -->
 
 <!-- Header -->
-<header class="">
-  <nav class="navbar navbar-expand-lg bg-white">
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
     <div class="container">
       <a class="navbar-brand" href="{% url 'index' %}">
-        <h2>Blog<span style="color: rgb(241, 110, 70);">Spot</span></h2>
+        <h2 class="font-weight-bold">Daily <span style="color: #007bff;">Thoughts</span></h2> <!-- Changed color to blue -->
       </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
         aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li>
-            <a class="nav-link" href="{% url 'index' %}">Home
-              <span class="sr-only">(current)</span>
-            </a>
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'index' %}">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'blog' %}">Blogs</a>
@@ -41,11 +40,11 @@
             <a class="nav-link" href="{% url 'profile' user.id %}">Profile</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-primary" href="{% url 'logout' %}">Logout</a>
+            <a class="nav-link text-danger" href="{% url 'logout' %}">Logout</a>
           </li>
           {% else %}
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'signin' %}"><i class="fa fa-user"></i></a>
+            <a class="nav-link" href="{% url 'signin' %}"><i class="fa fa-user"></i> Sign In</a>
           </li>
           {% endif %}
         </ul>
@@ -54,12 +53,111 @@
   </nav>
 </header>
 
+<!-- Header Styling -->
+<style>
+  /* Importing Google Font (Poppins) */
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+  /* Header Styling */
+  header {
+    background-color: #f0f8ff;  /* Light blue background */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    font-family: 'Poppins', sans-serif; /* Applying Poppins font */
+    padding: 20px 0; /* Added padding to increase height */
+  }
+
+  /* Brand Name Styling */
+  .navbar-brand h2 {
+    font-size: 2.2rem;  /* Increased font size */
+    font-weight: 700;
+    color: #333;
+    letter-spacing: 1px;
+    font-family: 'Poppins', sans-serif; /* Applying Poppins font */
+  }
+
+  /* Styling for the span inside the navbar brand */
+  .navbar-brand h2 span {
+    color: #007bff;  /* Blue color for the "Thoughts" part */
+  }
+
+  /* Navbar Link Styling */
+  .navbar-nav .nav-item .nav-link {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #333;  /* Darker text color for links */
+    padding: 12px 18px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-family: 'Poppins', sans-serif; /* Applying Poppins font */
+  }
+
+  /* Blue hover effect for navbar links */
+  .navbar-nav .nav-item .nav-link:hover {
+    color: #fff;  /* White text on hover */
+    background-color: #007bff;  /* Blue background on hover */
+    border-radius: 5px;  /* Optional: rounded corners for the button effect */
+  }
+
+  .navbar-nav .nav-item .nav-link.text-danger {
+    color: #e74c3c !important;
+  }
+
+  .navbar-nav .nav-item .nav-link.text-danger:hover {
+    color: #c0392b !important;
+    background-color: rgba(236, 88, 88, 0.1);
+  }
+
+  /* Navbar Toggler */
+  .navbar-toggler {
+    border: none;
+    background-color: transparent;
+  }
+
+  .navbar-toggler-icon {
+    background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2216%22 height=%2216%22 fill=%22currentColor%22 class=%22bi bi-list%22 viewBox=%220 0 16 16%22%3E%3Cpath d=%22M2 12h12v-2H2v2zm0-4h12v-2H2v2zm0-4V2h12v2H2z%22/%3E%3C/svg%3E');
+  }
+
+  /* Navbar Collapse and Responsiveness */
+  .navbar-nav.ms-auto {
+    text-align: center;
+  }
+
+  /* Increase header height for larger spacing */
+  .navbar {
+    padding: 20px 0;  /* Increased padding to make the navbar taller */
+  }
+
+  /* Mobile View */
+  @media (max-width: 768px) {
+    .navbar-nav .nav-item .nav-link {
+      font-size: 1.0rem;
+      padding: 12px 15px;
+    }
+
+    .navbar-brand h2 {
+      font-size: 1.8rem;  /* Slightly smaller brand name on mobile */
+    }
+
+    .navbar-nav.ml-auto {
+      text-align: center;
+    }
+  }
+
+  /* Extra Small Screens */
+  @media (max-width: 576px) {
+    .navbar-brand h2 {
+      font-size: 1.5rem;  /* Further reduce font size for very small screens */
+    }
+  }
+</style>
+
+
 <!-- Page Content -->
 <!-- Banner Starts Here -->
 <div class="main-banner header-text">
   <div class="container-fluid">
     <div class="owl-banner owl-carousel">
-
+      <!-- Your Banner Content Here -->
     </div>
   </div>
 </div>

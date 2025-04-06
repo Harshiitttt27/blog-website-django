@@ -17,52 +17,83 @@
   <!-- Bootstrap core CSS -->
   <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
-
   <!-- Additional CSS Files -->
   <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
   <link rel="stylesheet" href="{% static 'assets/css/templatemo-stand-blog.css' %}">
   <link rel="stylesheet" href="{% static 'assets/css/owl.css' %}">
   <style>
+    body {
+      background-image: url("https://wallpaperaccess.com/full/3916078.jpg");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      font-family: 'Roboto', sans-serif;
+    }
+
     form {
-      margin-top: 200px;
+      margin-top: 100px;
       width: 50%;
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     }
 
     h5 {
-      color: rgb(237, 63, 63);
-      font-weight: 500;
-      font-size: 30px;
+      color: #0056b3;
+      font-weight: 600;
+      font-size: 28px;
       margin-bottom: 20px;
     }
 
     .btn {
       margin-top: 30px;
-      background: rgb(236, 88, 88);
+      background-color: #007bff;
       width: 100%;
       color: #fff;
-      font-size: 20px;
-      padding: 5px;
+      font-size: 18px;
+      padding: 12px;
+      border-radius: 5px;
+      border: none;
     }
 
     .btn:hover {
-      background: transparent;
-      color: rgb(237, 63, 63);
-      border: 1px solid rgb(237, 63, 63);
+      background-color: #0056b3;
+      color: #fff;
+    }
+
+    .form-control,
+    .form-label {
+      margin-bottom: 15px;
+    }
+
+    .form-control:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+    }
+
+    label {
+      font-weight: 600;
     }
 
     a {
       text-decoration: none;
-      color: #386cbb;
+      color: #0056b3;
     }
 
     a:hover {
-      color: rgb(237, 63, 63);
-      letter-spacing: 1px;
+      color: #ff6f61;
     }
 
-    @media screen and (max-width:600px) {
+    .message {
+      color: #e74c3c;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    @media screen and (max-width: 768px) {
       form {
-        width: 100%;
+        width: 90%;
       }
     }
   </style>
@@ -71,72 +102,32 @@
 <body>
 
   <!-- Header -->
-  <header class="">
-    <nav class="navbar navbar-expand-lg bg-white">
-      <div class="container">
-        <a class="navbar-brand" href="index.html">
-          <h2>BLOG<span style="color: orangered;">SPOT</span></h2>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-          aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li>
-              <a class="nav-link" href="{% url 'index' %}">Home
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'blog' %}">Blogs</a>
-            </li>
-
-            {% if user.is_authenticated %}
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'create' %}">Create</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'profile' user.id %}">Profile</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-            </li>
-            {% else %}
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'signin' %}">Login</a>
-            </li>
-            {% endif %}
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </header>
+  {% include 'header.html' %}
 
   <!-- Page Content -->
-
-
   <div class="container">
-    <div class="d-flex justify-content-center align-items-center " style="height: 100vh;">
-
+    <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
       <form action="{% url 'editpost' post.id %}" class="p-5 shadow" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <h5 class="mb-5">Update Your Post</h5>
-        <label for="" class="form-label">Title</label>
+        <h5>Update Your Post</h5>
+
+        <label for="postname" class="form-label">Title</label>
         <div class="input-group">
           <input type="text" class="form-control" name="postname" value="{{post.postname}}" required>
         </div>
-        <label for="" class="form-label">Content</label>
+
+        <label for="content" class="form-label">Content</label>
         <textarea class="form-control" name="content" required>{{post.content}}</textarea>
-        <label for="" class="form-label">Category</label>
+
+        <label for="category" class="form-label">Category</label>
         <input type="text" class="form-control" name="category" value="{{post.category}}" required>
-        <button class="btn">Update Post</button>
-        <br>
+
+        <button type="submit" class="btn">Update Post</button>
+
         {% for message in messages %}
-        <p class="text-danger">{{message}}</p>
+        <p class="message">{{message}}</p>
         {% endfor %}
       </form>
-
     </div>
   </div>
 

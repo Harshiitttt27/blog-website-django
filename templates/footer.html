@@ -1,78 +1,146 @@
+{% load static %}
 
-<style>
-  h4 {
-    text-align: left;
-    color: #dfdada;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-    font-size: 20px;
-  }
+<!-- Footer Start -->
+<footer class="footer-section">
+    <div class="container">
+        <div class="row">
+            <!-- Footer Column 1: About Us -->
+            <div class="col-md-4">
+                <div class="footer-widget">
+                    <h5 class="footer-title">About Us</h5>
+                    <p>We are a passionate team bringing fresh and insightful thoughts to our readers. Our mission is to inspire, educate, and entertain with our daily blogs on various topics.</p>
+                </div>
+            </div>
 
-  li {
-    text-decoration: none;
-    text-align: left;
-  }
+            <!-- Footer Column 2: Quick Links -->
+            <div class="col-md-4">
+                <div class="footer-widget">
+                    <h5 class="footer-title">Quick Links</h5>
+                    <ul class="footer-links">
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li><a href="{% url 'blog' %}">Blogs</a></li>
+                        <li><a href="{% url 'contact' %}">Contact</a></li>
+                        <li><a href="{% url 'signin' %}">Sign In</a></li>
+                    </ul>
+                </div>
+            </div>
 
-  li a {
-    color: rgb(153, 147, 147);
-  }
+            <!-- Footer Column 3: Contact Info -->
+            <div class="col-md-4">
+                <div class="footer-widget">
+                    <h5 class="footer-title">Contact</h5>
+                    <ul class="footer-contact-info">
+                        <li><i class="fas fa-envelope"></i> <a href="mailto:harrysethi52@gmail.com">harrysethi52@gmail.com</a></li>
+                        <li><i class="fas fa-phone"></i> <a href="tel:+ 91 7291886231">+ 91 7291886231</a></li>
+                        <li><i class="fas fa-map-marker-alt"></i> <a href="https://maps.app.goo.gl/PKcbfFG2yGhY1iUbA" target="_blank">New Delhi -110059 , India</a></li>
+                    </ul>
+                </div>
+            </div>
+            
 
-  li a:hover {
-    color: orange;
-  }
-
-  @media screen and (max-width:600px) {
-
-    h4,
-    li {
-      text-align: center;
-    }
-  }
-</style>
-
-<footer>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-3 col-md-6 col-sm-12">
-        <h4 class="text-light">SERVICE</h4>
-        <ul>
-          <li><a href="#">Shipping & Returns</a></li>
-          <li><a href="#">Size Guide</a></li>
-        </ul>
-      </div>
-      <div class="col-lg-3 col-md-6 col-sm-12">
-        <h4 class="text-light">ACCOUNT</h4>
-        <ul>
-          <li><a href="{% url 'signin' %}">Login</a></li>
-          <li><a href="{% url 'signup' %}">Signup</a></li>
-        </ul>
-      </div>
-      <div class="col-lg-3 col-md-6 col-sm-12">
-        <h4 class="text-light">INFORMATION</h4>
-        <ul>
-          <li><a href="{% url 'blog' %}">Our Story</a></li>
-          <li><a href="#">Find a stocklist</a></li>
-        </ul>
-      </div>
-      <div class="col-lg-3 col-md-6 col-sm-12">
-        <h4 class="text-light">CONNECT</h4>
-        <ul>
-          <li><a href="https://www.linkedin.com/in/keerti-vishwkarma-8ba754243/">Facebook</a></li>
-          <li><a href="https://www.linkedin.com/in/keerti-vishwkarma-8ba754243/">Instagram</a></li>
-        </ul>
-      </div>
-
-    </div>
-  </div>
-
-  <div class="container mt-5">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="p-3">
-          <p>Developed with 💖 by <a href="https://www.linkedin.com/in/keerti-vishwkarma-8ba754243/">Keerti</a> <br>
-            &copy; Copyright 2023 | All Rights Reserved
+        <!-- Footer Bottom -->
+        <div class="footer-bottom text-center mt-3">
+            <p>&copy; 2025 Daily Thoughts. All Rights Reserved.</p>
         </div>
-      </div>
     </div>
-  </div>
 </footer>
+<!-- Footer End -->
+
+<!-- Footer Styles -->
+<style>
+    .footer-section {
+        background-color: #f8f9fa; /* Light background color to match the white header */
+        color: #333; /* Dark text for readability */
+        padding: 20px 0; /* Reduced padding for smaller footer height */
+        border-top: 1px solid #ddd; /* Light border to separate footer */
+    }
+
+    .footer-widget {
+        margin-bottom: 20px; /* Reduced margin for less height */
+    }
+
+    .footer-title {
+        font-size: 20px; /* Reduced font size */
+        font-weight: 700;
+        margin-bottom: 15px;
+        color: #333;
+    }
+
+    .footer-widget p {
+        font-size: 14px; /* Reduced font size */
+        color: #555;
+    }
+
+    .footer-links {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .footer-links li {
+        margin-bottom: 8px; /* Reduced margin for links */
+    }
+
+    .footer-links a {
+        text-decoration: none;
+        color: #007bff; /* Blue color for links */
+        font-size: 14px; /* Smaller font size */
+        transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+        color: #0056b3; /* Darker blue on hover */
+    }
+
+    .footer-contact-info {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .footer-contact-info li {
+        font-size: 14px; /* Reduced font size */
+        color: #555;
+        margin-bottom: 8px; /* Reduced margin for contact info */
+    }
+
+    .footer-contact-info i {
+        margin-right: 10px;
+        color: #007bff; /* Blue color for icons */
+    }
+
+    .footer-bottom {
+        border-top: 1px solid #ddd;
+        padding-top: 10px; /* Reduced padding */
+        color: #888;
+    }
+
+    .footer-bottom p {
+        font-size: 12px; /* Smaller font size */
+        margin: 0;
+    }
+
+    /* Responsive Design */
+    @media screen and (max-width: 768px) {
+        .footer-widget {
+            text-align: center;
+        }
+
+        .footer-bottom {
+            padding-top: 10px;
+        }
+    }
+
+    @media screen and (max-width: 576px) {
+        .footer-section {
+            padding: 15px 0; /* Reduced padding for small screens */
+        }
+
+        .footer-title {
+            font-size: 18px;
+        }
+
+        .footer-links li,
+        .footer-contact-info li {
+            font-size: 12px; /* Reduced font size */
+        }
+    }
+</style>
