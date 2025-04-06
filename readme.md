@@ -49,5 +49,38 @@ Database: SQLite (default), can be configured for PostgreSQL/MySQL
 
 Authentication: Django's built-in auth system
 
+### Below attached scrrenshot of UI
+
+## Homepage 
+![Homepage](https://github.com/Harshiitttt27/blog-website-django/blob/main/static/preview/Screenshot%202025-04-06%20185359.png?raw=true)
+
+## Signup page 
+![Signup](https://github.com/Harshiitttt27/blog-website-django/blob/main/static/preview/Screenshot%202025-04-06%20185432.png?raw=true)
+
+## Login page 
+![login](https://github.com/Harshiitttt27/blog-website-django/blob/main/static/preview/Screenshot%202025-04-06%20185409.png?raw=true)
+
+## Contact page 
+![contact](https://github.com/Harshiitttt27/blog-website-django/blob/main/static/preview/Screenshot%202025-04-06%20185443.png?raw=true)
+
+## Create blog 
+![createblog](https://github.com/Harshiitttt27/blog-website-django/blob/main/static/preview/Screenshot%202025-04-06%20185456.png?raw=true)
+
+## Profile page 
+![profile](https://github.com/Harshiitttt27/blog-website-django/blob/main/static/preview/Screenshot%202025-04-06%20185523.png?raw=true)
+
+## Footer 
+![footer](https://github.com/Harshiitttt27/blog-website-django/blob/main/static/preview/Screenshot%202025-04-06%20185615.png?raw=true)
+
+## Mobile view
+![mobileview](https://github.com/Harshiitttt27/blog-website-django/blob/main/static/preview/Screenshot%202025-04-06%20190011.png?raw=true)
+
+## Post update 
+![postupdate](https://github.com/Harshiitttt27/blog-website-django/blob/main/static/preview/Screenshot%202025-04-06%20190056.png?raw=true)
+
+## Profile update 
+![profileupdate](https://github.com/Harshiitttt27/blog-website-django/blob/main/static/preview/Screenshot%202025-04-06%20190106.png?raw=true)
+
+
 ### clone this repository by :-
 git clone https://github.com/Harshiitttt27/blog-website-django.git
