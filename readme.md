@@ -1,3 +1,7 @@
+## 🌐 Live Preview
+
+Check out the live site here: [Live Demo](https://blog-website-django-3.onrender.com/)
+
 ### Daily Thoughts - A Django Blog Website
 ### Overview
 Daily Thoughts is a full-featured blog platform built with Django that allows users to share their daily musings, interact with other users' posts, and manage their profiles. The application implements all CRUD (Create, Read, Update, Delete) operations for blog posts and comments, along with user authentication, profile management, and administrative controls.
